@@ -5,7 +5,8 @@ import { useActionState } from "react";
 import { register } from "@/actions/auth";
 
 export default function Register(){
-        const [state,action,isPending]=useActionState(register,undefined)
+        const [state,action,isPending]=useActionState(register,undefined);
+        console.log(state?.errors?.confirmPassword)
         return(
                 <div className="flex justify-center items-center">
                         <div className="flex flex-col bg-sky-600 mt-2 px-4 pb-2">
@@ -15,19 +16,36 @@ export default function Register(){
                                         <label htmlFor="email">Email:</label>
                                         <input type="text" name="email"
                                         className="border-2 border-gray-400"
+                                        defaultValue={state?.email}
                                          />
+                                         {state?.errors?.email&&
+                                         <p className="text-red-600 font-bold">      {state.errors.email}
+                                         </p>}
                                 </div>
                                 <div className="flex flex-col">
                                         <label htmlFor="password">Password:</label>
                                         <input type="password" name="password"
                                         className="border-2 border-gray-400"
                                          />
+                                         {state?.errors?.password&&
+                                         <div>
+                                                <p>Password must:</p>
+                                                <ul>{state.errors.password.map(err=>(
+                                                        <li key={err} className="text-red-600">
+                                                                {err}
+                                                        </li>
+                                                ))}</ul>
+                                         </div>
+                                         }
                                 </div>
                                 <div className="flex flex-col">
-                                        <label htmlFor="confirmpassword">Confirm Password:</label>
-                                        <input type="password" name="confirmpassword"
+                                        <label htmlFor="confirmPassword">Confirm Password:</label>
+                                        <input type="password" name="confirmPassword"
                                         className="border-2 border-gray-400" 
                                         />
+                                        {state?.errors?.confirmPassword&&
+                                         <p className="text-red-600 font-bold">      {state.errors.confirmPassword}
+                                         </p>}
                                 </div>
                                 <div className="flex gap-2">
                                         <button disabled={isPending}

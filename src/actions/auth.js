@@ -1,8 +1,17 @@
 "use server"
 
+import { RegisterFormSchema } from "@/lib/rules";
+
 export async function register(state,formData){
-        const email=formData.get("email");
-        const password=formData.get("password")
-        const confirmpassword=formData.get("confirmpassword")
-        console.log(email,password,confirmpassword)
+        const validateFormFields=RegisterFormSchema.safeParse({
+                email:formData.get("email"),
+                password:formData.get("password"),
+                confirmPassword:formData.get("confirmPassword")
+        })
+        if(!validateFormFields.success){
+                return{
+                        errors:validateFormFields.error.flatten().fieldErrors,
+                        email:formData.get("email"),
+                }
+        }
 }

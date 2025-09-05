@@ -6,7 +6,6 @@ import { register } from "@/actions/auth";
 
 export default function Register(){
         const [state,action,isPending]=useActionState(register,undefined);
-        console.log(state?.errors?.confirmPassword)
         return(
                 <div className="flex justify-center items-center">
                         <div className="flex flex-col bg-sky-600 mt-2 px-4 pb-2">

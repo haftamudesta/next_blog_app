@@ -4,6 +4,7 @@ import bcrypt from "bcrypt"
 import { getCollection } from "@/lib/mongodb";
 import { RegisterFormSchema } from "@/lib/rules";
 import { redirect } from "next/navigation";
+import { createSession } from "@/lib/sessions";
 
 
 
@@ -37,6 +38,9 @@ export async function register(state,formData){
         
         const hashedPassword=await bcrypt.hash(password,10);
         const results=await userCollection.insertOne({email,password:hashedPassword})
+
+        await createSession(results.insertedId)
+        
         redirect("/dashboard")
         
 }

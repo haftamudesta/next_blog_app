@@ -1,4 +1,4 @@
-"use server"
+import "server-only"
 
 import bcrypt from "bcrypt"
 import { getCollection } from "@/lib/mongodb";
@@ -39,7 +39,7 @@ export async function register(state,formData){
         const hashedPassword=await bcrypt.hash(password,10);
         const results=await userCollection.insertOne({email,password:hashedPassword})
 
-        await createSession(results.insertedId)
+        await createSession(results.insertedId.toString())
         
         redirect("/dashboard")
         

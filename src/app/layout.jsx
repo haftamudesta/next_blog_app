@@ -3,6 +3,7 @@ import "./globals.css";
 import { Poppins } from 'next/font/google';
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import { getAutenticatedhUser } from "@/lib/getAuthUser";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,14 +26,15 @@ const poppins = Poppins({
   variable: '--font-poppins',
 });
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const authUser=await getAutenticatedhUser();
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
         <div>
-          <NavBar />
+          <NavBar authUser={authUser}/>
         </div>
         <main className="flex-grow">
           {children}

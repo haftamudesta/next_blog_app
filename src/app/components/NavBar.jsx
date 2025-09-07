@@ -24,7 +24,7 @@ const NavBar = ({authUser}) => {
              </form>
           </div>
         ):(
-          <div className='flex gap-4'>
+          <div className='flex gap-4 mr-2'>
             <Link href="/register" className={pathName==="/register" ? "text-teal-600 font bold border-1 px-2 rounded-md":""}>Register</Link> 
              <Link href="/login" className={pathName==="/login" ? "text-teal-600 font bold border-1 px-2 rounded-md":""}>Login</Link>
           </div>

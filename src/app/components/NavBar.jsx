@@ -8,7 +8,6 @@ import React from 'react'
 const NavBar = ({authUser}) => {
   const pathName=usePathname();
   
-  console.log(authUser);
   return (
     <div className='flex justify-between items-center bg-slate-950 text-white py-4 '>
         <div>
@@ -16,12 +15,13 @@ const NavBar = ({authUser}) => {
         </div>
         {authUser?(
           <div className='flex gap-4 mr-2'>
-             <Link href="/dashboard" className={pathName==="/dashboard" ? "text-teal-600 font bold border-1 px-2 rounded-md":""}>Dashboard</Link>
-             <form action={logout}>
+            <Link href="/posts/create" className={pathName==="/posts/create" ? "text-teal-600 font bold border-1 px-2 rounded-md":""}>Create Post</Link>
+            <Link href="/dashboard" className={pathName==="/dashboard" ? "text-teal-600 font bold border-1 px-2 rounded-md":""}>Dashboard</Link>
+            <form action={logout}>
               <button className='text-red-400 font-bold bg-teal-400 px-2 rounded-md py-1 cursor-pointer'>
                 Logout
               </button>
-             </form>
+            </form>
           </div>
         ):(
           <div className='flex gap-4 mr-2'>

@@ -31,3 +31,9 @@ export const RegisterFormSchema = z
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
+
+  export const BlogPostSchema = z
+  .object({
+    title:z.string().min(1,{ message: "Title can not ba empty!" }).max(80, { message: "Title can not ba more than 80 character" }).trim(),
+    content:z.string().min(1, { message: "Content can not ba empty!" }).trim(),
+  })

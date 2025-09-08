@@ -65,7 +65,7 @@ const PostCard = ({post}) => {
   return (
         <div className="border border-slate-300 border-dashed p-2 rounded-md h-full">
             <p className="text-teal-400 text-sm font-semibold"> Posted {relativeTime}</p>
-            <Link href={""} className="block text-xl font-bold">{post.title}</Link>
+            <Link href={`/posts/show/${post._id?.toString()}`} className="block text-xl font-bold">{post.title}</Link>
             <p className="text-sm">{post.content}</p>
         </div>
   )

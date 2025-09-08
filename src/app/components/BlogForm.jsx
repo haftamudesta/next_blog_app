@@ -2,7 +2,7 @@
 
 import { useActionState } from "react"
 
-export const BlogForm=({handler})=>{
+export const BlogForm=({handler,post})=>{
         const [state,action,isPending]=useActionState(handler,undefined)
         console.log("State:",state)
         return (
@@ -12,17 +12,18 @@ export const BlogForm=({handler})=>{
                                         <label htmlFor="title">Title:</label>
                                         <input type="text" name="title"
                                         className="border-2 border-gray-400"
-                                        defaultValue={state?.title}
+                                        defaultValue={state?.title ||post?.title}
                                         />
                                         {state?.errors?.title&&
                                                 <p className="text-red-600 font-bold">      {state.errors.title}
                                                 </p>}
                                </div>
                                 <div className="flex flex-col">
+                                        <input type="hidden" name="postId" defaultValue={post?._id}  />
                                         <label htmlFor="content">Content:</label>
                                         <textarea name="content" rows={6}
                                         className="border-2 border-gray-400"
-                                        defaultValue={state?.content}
+                                        defaultValue={state?.content || post?.content}
                                         />
                                         {state?.errors?.content&&
                                                 <p className="text-red-600 font-bold">      {state.errors.content}

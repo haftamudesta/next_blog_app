@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
-import { BlogForm } from '@/app/components/BlogForm'
-import { getCollection } from "@/lib/mongodb"
+import { BlogForm } from '@/app/components/BlogForm';
+import { getCollection } from "@/lib/mongodb";
 import { SerializePost } from "../../../../lib/serializePost";
 import { updatePost } from "@/actions/posts";
 import { getAutenticatedhUser } from "@/lib/getAuthUser";

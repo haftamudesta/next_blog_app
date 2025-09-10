@@ -6,6 +6,7 @@ import Link from "next/link";
 
 export default async function DashBoard(){
         const user=await getAutenticatedhUser();
+        console.log("user",user)
         const postsCollection=await getCollection("posts");
         const userPosts=await postsCollection?.find({userId:ObjectId.createFromHexString(user.userId)}).sort({$natural:-1}).toArray();
         if(!userPosts) return <p>Faild to fetch data from database</p>
@@ -13,6 +14,7 @@ export default async function DashBoard(){
         return(
                 <div>
                 <h1 className="text-3xl text-center underline">DashBoard</h1>
+                <h2>Welcome </h2>
                 {userPosts &&(
                         <table>
                                 <thead>
@@ -38,12 +40,12 @@ export default async function DashBoard(){
                                                         {post.title}
                                                         </td>
                                                         <td className="px-8 py-3">
-                                                                <Link href={`/posts/show/${post._id.toString()}`} className="w-3/6 text-purple-300">
+                                                        <Link href={`/posts/show/${post._id.toString()}`} className="w-3/6 text-purple-300">
                                                         View
                                                         </Link>
                                                         </td>
                                                         <td className="px-8 py-3">
-                                                                <Link href={`/posts/edit/${post._id.toString()}`} className="w-3/6 text-amber-300">
+                                                        <Link href={`/posts/edit/${post._id.toString()}`} className="w-3/6 text-amber-300">
                                                         Edit
                                                         </Link>
                                                         </td>

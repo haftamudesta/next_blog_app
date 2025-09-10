@@ -3,9 +3,11 @@ import PostCard from "@/app/components/PostCard";
 import { getCollection } from "@/lib/mongodb"
 import { ObjectId } from "mongodb";
 import { SerializePost } from "../../../../lib/serializePost";
+import { getAutenticatedhUser } from "@/lib/getAuthUser";
 
 export default async function ShowPostDetail({params}){
         const {id}=await params;
+        
         const postCollection=await getCollection("posts");
         const foundPost=id.length===24? (await postCollection?.findOne({
                 _id:ObjectId.createFromHexString(id)

@@ -18,8 +18,6 @@ const EditPost = async({params}) => {
                 )
 
         const post=SerializePost(foundPost)
-        console.log("user id:",user.userId)
-        console.log("post id:",post.userId)
         if(user.userId!==post.userId) return redirect("/")
   return (
         <div className="flex justify-center items-center mt-6">

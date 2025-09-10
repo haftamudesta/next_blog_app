@@ -2,13 +2,15 @@ import { getCollection } from "@/lib/mongodb";
 import { getAutenticatedhUser } from "@/lib/getAuthUser";
 import { ObjectId } from "mongodb";
 import Link from "next/link";
+import { deletePost } from "@/actions/posts";
+import { SerializePost } from "@/lib/serializePost";
 
 
 export default async function DashBoard(){
         const user=await getAutenticatedhUser();
-        console.log("user",user)
         const postsCollection=await getCollection("posts");
         const userPosts=await postsCollection?.find({userId:ObjectId.createFromHexString(user.userId)}).sort({$natural:-1}).toArray();
+       
         if(!userPosts) return <p>Faild to fetch data from database</p>
         if(userPosts.length===0) return <p>There is no any post yet.</p>
         return(
@@ -49,7 +51,14 @@ export default async function DashBoard(){
                                                         Edit
                                                         </Link>
                                                         </td>
-                                                        <td className="text-red-500 px-8 py-3">Delete</td>
+                                                        <td className="text-red-500 px-8 py-3 ">
+                                                                <form action={deletePost}>
+                                                                <input type="hidden" name="postId" defaultValue={post._id.toString()} />
+                                                                <button type="submit" className="cursor-pointer">
+                                                                        Delete
+                                                                </button>
+                                                                </form>
+                                                        </td>
                                                 </tr>
                                         ))}
                                 </tbody>

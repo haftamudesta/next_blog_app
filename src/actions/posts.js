@@ -5,6 +5,7 @@ import { getAutenticatedhUser } from "../lib/getAuthUser";
 import { BlogPostSchema } from "../lib/rules";
 import { getCollection } from "../lib/mongodb";
 import { ObjectId } from "mongodb";
+import { revalidatePath } from "next/cache";
 
 export async function createPost(state,formData){
         const user=await getAutenticatedhUser()
@@ -70,4 +71,19 @@ export async function updatePost(state,formData){
          }
          })
         redirect("/dashboard")
+}
+
+export async function deletePost(formData){
+        const user=await getAutenticatedhUser()
+        if(!user){
+                return redirect("/")
+        }
+        const postCollection=await getCollection("posts");
+        const post =await postCollection.findOne({
+                _id:ObjectId.createFromHexString(formData.get("postId")),
+        })
+        if(user.userId!==post.userId.toString()) return redirect("/")
+        postCollection.findOneAndDelete({_id: post._id});
+        
+        revalidatePath("/dashboard")
 }

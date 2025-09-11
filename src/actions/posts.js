@@ -8,7 +8,7 @@ import { ObjectId } from "mongodb";
 import { revalidatePath } from "next/cache";
 
 export async function createPost(state,formData){
-        const user=await getAutenticatedhUser()
+        const user=await getAutenticatedhUser();
         if(!user){
                 return redirect("/")
         }
